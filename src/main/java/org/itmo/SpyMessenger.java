@@ -9,14 +9,18 @@ class SpyMessenger {
     HashMap<String, ArrayList<Message>> map = new HashMap<>();
 
     void sendMessage(String sender, String receiver, String message, String passcode) {
-        if (map.containsKey(sender)) {
+        if (map.containsKey(receiver)) {
             ArrayList<Message> messages = map.get(receiver);
             if (messages.size() > 5) {
                 Optional<Message> del = messages.stream().min(Comparator.comparing(Message::getTime));
                 del.ifPresent(messages::remove);
             }
             messages.add(new Message(LocalDateTime.now(), message, passcode));
+            map.put(receiver, messages);
         }
+        ArrayList<Message> messages = new ArrayList<>();
+        messages.add(new Message(LocalDateTime.now(), message, passcode));
+        map.put(receiver, messages);
     }
 
     String readMessage(String user, String passcode) {

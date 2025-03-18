@@ -16,4 +16,11 @@ class SpyMessengerTest {
         assertEquals("Top Secret", messenger.readMessage("Bob", "1234"));
     }
 
+    @Test
+    void testSendMessage_messagesIsExists() {
+        SpyMessenger messenger = new SpyMessenger();
+        messenger.sendMessage("Alice", "Bob", "Top Secret", "1234");
+        assertEquals("Top Secret", messenger.readMessage("Bob", "1234"));
+    }
+
 }
